@@ -1,0 +1,47 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block linkscript %}
+    <link rel="stylesheet" href="{% static 'cart/css/cart.css' %}">
+{#    <script src="{% static 'address/js/address.js' %}"></script>#}
+{% endblock %}
+
+{% block content %}
+    <div id="cart">
+        <h3><b>商品展示表</b></h3>
+        <form action="{% url 'App:showaddress' %}" method="post" id="subform">
+            {% csrf_token %}
+            <section class="full">
+                <section>
+                    {% for p in data %}
+                        <ul id="{{ p.productid }}">
+                            <li>
+                                <div class="clear">
+                                    <p class="infoJustify">商品图片<b></b></p>
+                                    <p>:<span><img src="{{ p.productimg }}"/></span></p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="clear">
+                                    <p class="infoJustify">商品名称<b></b></p>
+                                    <p>:<span>{{ p.productname }}</span></p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="clear"><p class="infoJustify">商品价格<b></b></p>
+                                    <p>:<span>{{ p.price }}</span></p>
+                                </div>
+                            </li>
+
+
+
+                        </ul>
+                    {% endfor %}
+                </section>
+            </section>
+        </form>
+    </div>
+
+
+
+{% endblock %}
+

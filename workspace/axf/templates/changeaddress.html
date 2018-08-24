@@ -1,0 +1,42 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block linkscript %}
+    <link rel="stylesheet" href="{% static 'cart/css/cart.css' %}">
+{#    <script src="{% static 'cart/js/cart.js' %}"></script>#}
+{% endblock %}
+
+{% block content %}
+    <div id="cart">
+        <h3><b>编辑地址</b></h3>
+        <form action="" method="post" id="subform">
+            {% csrf_token %}
+            <section class="full">
+                <section>
+                    <ul>
+                        <li>
+                            <div class="clear">
+                                <p class="infoJustify">收货人<b></b></p>
+                                <p>:<span><input type="text" name="name"  value="{{ data.name }}"></span></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="clear">
+                                <p class="infoJustify">电话<b></b></p>
+                                <p>:<span><input type="text" name="phone"  value="{{ data.phone }}"></span></p>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="clear"><p class="infoJustify">收货地址<b></b></p>
+                                <p>:<span><input type="text" name="address"  value="{{ data.address }}"></span></p>
+                            </div>
+                        </li>
+                    </ul>
+                    <input type="hidden" name="id" value="{{ data.id }}">
+                    <a id="ok" onclick="document.getElementById('subform').submit();return false" style="font-size: 30px" >提交</a>
+
+                </section>
+            </section>
+        </form>
+    </div>
+
+{% endblock %}

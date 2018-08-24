@@ -1,0 +1,62 @@
+{% extends 'common/base.html' %}
+{% load static %}
+{% block linkscript %}
+    <link rel="stylesheet" href="{% static 'cart/css/cart.css' %}">
+    <script src="{% static 'address/js/address.js' %}"></script>
+{% endblock %}
+
+{% block content %}
+    <div id="cart">
+        <h3><b>地址详情表</b></h3>
+        <form action="{% url 'App:showaddress' %}" method="post" id="subform">
+            {% csrf_token %}
+            <section class="full">
+                <section>
+                    {% for addr in data %}
+                        <ul id="{{ addr.id }}">
+                            <li>
+                                <div class="clear">
+                                    <p class="infoJustify">收货人<b></b></p>
+                                    <p>:<span>{{ addr.name }}</span></p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="clear">
+                                    <p class="infoJustify">电话<b></b></p>
+                                    <p>:<span>{{ addr.phone }}</span></p>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="clear"><p class="infoJustify">收货地址<b></b></p>
+                                    <p>:<span>{{ addr.address }}</span></p>
+                                </div>
+                            </li>
+
+                            <li class="payTheBill">
+                                <div class="confirm">
+                                <span  id="{{ addr.id }}c" onclick="changeaddr({{ addr.id }})">
+                            <span class="addrs" id="{{ addr.id }}cc">
+                            {% ifequal True  addr.choose %}
+                                √
+                            {% endifequal %}
+                            </span>
+                            </span>
+                                </div>
+                                <p><span>默认地址</span><span><a
+                                        href="{% url 'App:changeaddress' 1 %}?productid={{ addr.id }}">编辑</a></span>
+                                    <span style="float: right"><a  class="clearx" id="{{ addr.id }}d" onclick="delAddr({{ addr.id }},2)">删除</a></span>
+                                </p>
+
+                            </li>
+
+                        </ul>
+                    {% endfor %}
+                </section>
+            </section>
+        </form>
+    </div>
+
+
+
+{% endblock %}
+
